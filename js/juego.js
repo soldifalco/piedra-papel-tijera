@@ -27,6 +27,37 @@ botonesArmas.forEach((boton) => {
   boton.addEventListener("click", iniciarTurno);
 });
 
+// realizo una función que me permita que al tocar el boton de iniciar juego me de un resultado random
+
 function iniciarTurno(e) {
-  contenedorPuntosUsuario.innerText = 1;
+  let eleccionPc = Math.floor(Math.random() * 3);
+  let eleccionUsuario = e.currentTarget.id;
+
+  //transformar la elección de el usuario en piedra, papel o tijera
+
+  if (eleccionPc === 0) {
+    eleccionPc = "piedra🥌";
+  } else if (eleccionPc === 1) {
+    eleccionPc = "papel📋";
+  } else {
+    eleccionPc = "tijera✂";
+  }
+
+  //comparo elección de usuario con elección de pc
+
+  if (
+    (eleccionUsuario === "piedra🥌" && eleccionPc === "tijera✂") ||
+    (eleccionUsuario === "tijera✂" && eleccionPc === "papel📋") ||
+    (eleccionUsuario === "papel📋" && eleccionPc === "piedra🥌")
+  ) {
+    ganaUsuario();
+  } else if (
+    (eleccionPc === "piedra🥌" && eleccionUsuario === "tijera✂") ||
+    (eleccionPc === "tijera✂" && eleccionUsuario === "papel📋") ||
+    (eleccionPc === "papel📋" && eleccionUsuario === "piedra🥌")
+  ) {
+    ganaPc();
+  } else {
+    empate();
+  }
 }
