@@ -39,7 +39,7 @@ function iniciarTurno(e) {
     eleccionPc = "piedra🥌";
   } else if (eleccionPc === 1) {
     eleccionPc = "papel📋";
-  } else {
+  } else if (eleccionPc === 2) {
     eleccionPc = "tijera✂";
   }
 
@@ -60,4 +60,55 @@ function iniciarTurno(e) {
   } else {
     empate();
   }
+
+  mensaje.classList.remove("disabled");
+  contenedorEleccionUsuario.innerText = eleccionUsuario;
+  contenedorEleccionPc.innerText = eleccionPc;
+
+  //condicional para que el juego se corte cuando llegue a 5 puntos
+
+  if (puntosUsuario === 5 || puntosPc === 5) {
+    if (puntosUsuario === 5) {
+      instrucciones.innerText = "Ganaste el juego 😎🤙";
+    }
+    if (puntosPc === 5) {
+      instrucciones.innerText = "Ganó la pc 😫";
+    }
+
+    elegiTuArma.classList.add("disabled");
+    reiniciar.classList.remove("disabled");
+    reiniciar.addEventListener("click", reiniciarJuego);
+  }
+}
+
+//función para la suma de puntos en el juego
+
+function ganaUsuario() {
+  puntosUsuario++;
+  contenedorPuntosUsuario.innerText = puntosUsuario;
+  contenedorGanaPunto.innerText = "Ganaste un punto!🔥😎";
+}
+
+function ganaPc() {
+  puntosPc++;
+  contenedorPuntosPc.innerText = puntosPc;
+  contenedorGanaPunto.innerText = "La pc gana!👎😭";
+}
+
+function empate() {
+  contenedorGanaPunto.innerText = "Empate!🙄";
+}
+
+function reiniciarJuego() {
+  reiniciar.classList.add("disabled");
+  elegiTuArma.classList.remove("disabled");
+  mensaje.classList.add("disabled");
+
+  puntosUsuario = 0;
+  puntosPc = 0;
+
+  contenedorPuntosUsuario.innerText = puntosUsuario;
+  contenedorPuntosPc.innerText = puntosPc;
+
+  instrucciones.innerText = "El primero en llegar a 5 puntos gana!";
 }
